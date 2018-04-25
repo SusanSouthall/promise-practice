@@ -20,7 +20,12 @@ class WeatherApp {
 
     function getElements(response) {
       console.log(response);
-      $('#weatherZip-output').append("<strong>Day 1: </strong>" + response.list[0].weather[0].main + "</br></strong>");
+      $('#weatherZip-output').append("<strong>Day 1: </strong>" + response.list[0].weather[0].main + " skies</br></strong>");
+      $('#weatherZip-output').append("<strong>Day 1: </strong>" + response.list[0].main.temp + " Fahrenheit</br></strong>");
+      $('#weatherZip-output').append("<strong>Day 2: </strong>" + response.list[1].weather[0].main + " skies</br></strong>");
+      $('#weatherZip-output').append("<strong>Day 2: </strong>" + response.list[1].main.temp + " Fahrenheit</br></strong>");
+      $('#weatherZip-output').append("<strong>Day 3: </strong>" + response.list[2].weather[0].main + " skies</br></strong>");
+      $('#weatherZip-output').append("<strong>Day 3: </strong>" + response.list[2].main.temp + " Fahrenheit</br></strong>");
     // $('#weatherZip-output').text(``);
     }
   }
