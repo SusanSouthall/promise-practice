@@ -10,7 +10,7 @@ $(document).ready(function(){
     let userSearchZip = $('#zip-location').val();
     // console.log(userSearchZip);
 
-    // JQuery API Call
+    // JQuery API Call (AJAX)
     $.ajax({
       url: `http://api.openweathermap.org/data/2.5/weather?zip=${userSearchZip}&appid=${process.env.API_KEY}`,
       type: 'GET',
@@ -33,28 +33,13 @@ $(document).ready(function(){
   });//close ajax function
   // JavaScript API Call
   $("#search-js").click(function() {
+    let classCaller = new WeatherApp();//instance to grab class from BL
     let userSearchCity = $('#city-location').val();
     $('#city-location').val(""); //empty input
+    classCaller.weatherLogic(userSearchCity);
     // console.log(userSearchCity);
-    // let promise = new Promise(function(resolve, reject){ //instance created on built in ES6 object to pass arguements
-      let weatherRequest = new XMLHttpRequest(); // creating instance on js built in object
-      let url = `http://api.openweathermap.org/data/2.5/forecast?q=${userSearchCity}&appid=${process.env.API_KEY}&cnt=5`;
 
-      weatherRequest.onload = function() {
-        if (this.status === 200) {
-          console.log(response);
-          let response = JSON.parse(this.responseText);
-          getElements(response);//run the function
-          console.log(getElements(response));
-        }
-      }
-      weatherRequest.open("GET", url, true);
-      weatherRequest.send();
 
-      function getElements(response) {
-        $('#weatherZip-output').append("<strong>Day 1: </strong>" + response.list[0].weather[0].description.main + "</br></strong>");
-      // $('#weatherZip-output').text(``);
-      }
   });//close js
 
     // promise.then(function(response) {
