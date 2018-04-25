@@ -1,15 +1,14 @@
-import { Weather } from './weather-bl.js';
+import { WeatherApp } from './weather-bl.js';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import $ from 'jquery';
 
 $(document).ready(function(){
-  $("#submit-search").click(function(event) {
-    event.preventDefault();
+  $("#search-jQuery").click(function() {
 
-    let userSearchZip = $('#location').val();// Gather inputted info from btn
-    console.log(userSearchZip);
+    let userSearchZip = $('#location').val();
+    // console.log(userSearchZip);
 
     // JQuery API
     $.ajax({
@@ -20,17 +19,19 @@ $(document).ready(function(){
       },
       success: function(response) {
         $('#weather-output').empty();
-        console.log(response);
-        $('#weather-output').append("<strong>Humidity:</strong>" + response.name + "</br></strong>");
-        $('#weather-output').append("<strong>Zip:</strong>" + userSearchZip + "</br></strong>");
-        $('#weather-output').append("<strong>Humidity:</strong>" + response.main.humidity + "</br></strong>");
-        $('#weather-output').append("<strong>Pressure:</strong>" + response.main.pressure + "</br></strong>");
-        $('#weather-output').append("<strong>Temperature:</strong>" + response.main.temp + "</br></strong>");
+        // console.log(response);
+        $('#weather-output').append("<strong>Humidity: </strong>" + response.name + "</br></strong>");
+        $('#weather-output').append("<strong>Zip: </strong>" + userSearchZip + "</br></strong>");
+        $('#weather-output').append("<strong>Humidity: </strong>" + response.main.humidity + "</br></strong>");
+        $('#weather-output').append("<strong>Pressure: </strong>" + response.main.pressure + "</br></strong>");
+        $('#weather-output').append("<strong>Temperature: </strong>" + response.main.temp + "</br></strong>");
       },
       error: function() {
         $('#errors').text("There was an error processing your request. Please try again.")
       }
     }); //closes ajax
+    // JavaScript API
+
   });//closes submit function
 });//closes document
 
