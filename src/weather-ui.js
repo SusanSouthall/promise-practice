@@ -10,7 +10,7 @@ $(document).ready(function(){
     let userSearchZip = $('#zip-location').val();
     // console.log(userSearchZip);
 
-    // JQuery API
+    // JQuery API Call
     $.ajax({
       url: `http://api.openweathermap.org/data/2.5/weather?zip=${userSearchZip}&appid=${process.env.API_KEY}`,
       type: 'GET',
@@ -31,37 +31,41 @@ $(document).ready(function(){
       }
     }); //closes ajax
   });//close ajax function
-
+  // JavaScript API Call
   $("#search-js").click(function() {
     let userSearchCity = $('#city-location').val();
     $('#city-location').val(""); //empty input
     // console.log(userSearchCity);
-
-    // JavaScript API
-    let promise = new Promise(function(resolve, reject){ //instance created on built in ES6 object to pass arguements
+    // let promise = new Promise(function(resolve, reject){ //instance created on built in ES6 object to pass arguements
       let weatherRequest = new XMLHttpRequest(); // creating instance on js built in object
-      let url = `http://api.openweathermap.org/data/2.5/forecast?q=${userSearchCity}&appid=${process.env.API_KEY}`;
-      console.log(url);
+      let url = `http://api.openweathermap.org/data/2.5/forecast?q=${userSearchCity}&appid=${process.env.API_KEY}&cnt=5`;
+
       weatherRequest.onload = function() {
         if (this.status === 200) {
-          resolve(weatherRequest.response);
-        } else {
-          reject(Error(weatherRequest.statusText));
+          console.log(response);
+          let response = JSON.parse(this.responseText);
+          getElements(response);//run the function
+          console.log(getElements(response));
         }
       }
       weatherRequest.open("GET", url, true);
-      console.log(weatherRequest.open("GET", url, true));
       weatherRequest.send();
-      console.log(weatherRequest.send());
-    });//close promise
 
-    promise.then(function(response) {
-      let body = JSON.parse(response);
-      // let body = XMLHttpRequest.parse(response);
-      console.log(body);
-      $('#city-location').text(`The humidity in ${city} is ${body.main.humidity}%`);
-    }, function(error) {
-      $('#errors2').text(`There was an error processing your request!`);
-    });
+      function getElements(response) {
+        $('#weatherZip-output').append("<strong>Day 1: </strong>" + response.list[0].weather[0].description.main + "</br></strong>");
+      // $('#weatherZip-output').text(``);
+      }
   });//close js
+
+    // promise.then(function(response) {
+    //   let body = JSON.parse(response);
+    //   // let body = XMLHttpRequest.parse(response);
+    //   console.log(body);
+    //   //$('#weatherZip-output').append("<strong>Day 1: </strong>" + response.list[0].weather[0].description.main + "</br></strong>");
+    //   getElements(response);
+    // }
+    // }, function(error) {
+    //   $('#errors2').text(`There was an error processing your request!`);
+    // });
+
 });//closes document
