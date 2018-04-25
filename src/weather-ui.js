@@ -4,6 +4,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import $ from 'jquery';
 
+function getElements(response, userSearchCity) {
+  console.log();
+  // console.log(response);
+  $('#weatherZip-output').append("<strong>" + userSearchCity + "</strong>" + "</br>");
+  $('#weatherZip-output').append("<strong>Day 1: </strong>" + response.list[0].weather[0].main + " skies</br></strong>");
+  $('#weatherZip-output').append("<strong>Day 1: </strong>" + response.list[0].main.temp + " Kelvins</br></strong>");
+  $('#weatherZip-output').append("<strong>Day 2: </strong>" + response.list[1].weather[0].main + " skies</br></strong>");
+  $('#weatherZip-output').append("<strong>Day 2: </strong>" + response.list[1].main.temp + " Kelvins</br></strong>");
+  $('#weatherZip-output').append("<strong>Day 3: </strong>" + response.list[2].weather[0].main + " skies</br></strong>");
+  $('#weatherZip-output').append("<strong>Day 3: </strong>" + response.list[2].main.temp + " Kelvins</br></strong>");
+}
+
 $(document).ready(function(){
   $("#search-jQuery").click(function() {
 
@@ -33,24 +45,16 @@ $(document).ready(function(){
   });//close ajax function
   // JavaScript API Call
   $("#search-js").click(function() {
-    let classCaller = new WeatherApp();//instance to grab class from BL
-    let userSearchCity = $('#city-location').val();
-    $('#city-location').val(""); //empty input
-    classCaller.weatherLogic(userSearchCity);
+      let classCaller = new WeatherApp();//instance to grab class from BL
+      let userSearchCity = $('#city-location').val();
     // console.log(userSearchCity);
-
-
+    $('#city-location').val(""); //empty input
+    let promise = classCaller.weatherLogic(userSearchCity);//run this instance on the method from the BL
+    promise.then(function(response){
+      response = JSON.parse(response); //cleans code
+      getElements(response, userSearchCity); //calls on the function
+    }, function(Error) { //display error
+      console.log("Sorry, there is an Error loading your requested information!");
+    });
   });//close js
-
-    // promise.then(function(response) {
-    //   let body = JSON.parse(response);
-    //   // let body = XMLHttpRequest.parse(response);
-    //   console.log(body);
-    //   //$('#weatherZip-output').append("<strong>Day 1: </strong>" + response.list[0].weather[0].description.main + "</br></strong>");
-    //   getElements(response);
-    // }
-    // }, function(error) {
-    //   $('#errors2').text(`There was an error processing your request!`);
-    // });
-
 });//closes document
