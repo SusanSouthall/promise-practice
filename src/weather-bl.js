@@ -23,30 +23,31 @@ class WeatherApp {
   }
 }
 
-class StormGlassApp {
-  constructor() { //blank constructor
-  }
+// class StormGlassApp {
+//   constructor() { //blank constructor
+//   }
 
-  stormGlassLogic(stormSearch) {
-    return new Promise(function(resolve, reject) {
-
-      let stormRequest = new XMLHttpRequest(); // creating instance on js built in object
-      let url = `https://api.stormglass.io/forecast?key=${process.env.STORMAPI_KEY}&lat=${latInput}&lng=${longInput}`;
-
-      stormRequest.onload = function() {
-        if (this.status === 200) {
-          resolve(stormRequest.response);//run the function
-        } else {
-          reject(Error(stormRequest.statusText));
-        }
-      }
-      stormRequest.open("GET", url, true);
-      stormRequest.send();
-    });
-  }
-}
+  // stormGlassLogic(latInput, longInput) {
+  //   return new Promise(function(resolve, reject) {
+  //
+  //     let stormRequest = new XMLHttpRequest(); // creating instance on js built in object
+  //     let url = `https://api.stormglass.io/forecast?key=${process.env.STORMAPI_KEY}&lat=${latInput}&lng=${longInput}`;
+  //
+  //     stormRequest.onload = function() {
+  //       if (this.status === 200) {
+  //         resolve(stormRequest.response);//run the function
+  //         // console.log(resolve(stormRequest.response));
+  //       } else {
+  //         reject(Error(stormRequest.statusText));
+  //       }
+  //     }
+  //     stormRequest.open("GET", url, true);
+  //     stormRequest.send();
+  //   });
+  // }
+// }
 
 
 
 export { WeatherApp };
-export { StormGlassApp };
+// export { StormGlassApp };
