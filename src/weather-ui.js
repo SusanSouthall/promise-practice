@@ -4,10 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import $ from 'jquery';
 
-function getElements(response, userSearchCity) {
+function getElements(response, capUserSearchCity) {
   console.log();
   // console.log(response);
-  $('#weatherZip-output').append("<strong>" + userSearchCity + "</strong>" + "</br>");
+  $('#weatherZip-output').append("<strong>" + capUserSearchCity + "</strong>" + "</br>");
   $('#weatherZip-output').append("<strong>Day 1: </strong>" + response.list[0].weather[0].main + " skies</br></strong>");
   $('#weatherZip-output').append("<strong>Day 1: </strong>" + response.list[0].main.temp + " Kelvins</br></strong>");
   $('#weatherZip-output').append("<strong>Day 2: </strong>" + response.list[1].weather[0].main + " skies</br></strong>");
@@ -47,12 +47,13 @@ $(document).ready(function(){
   $("#search-js").click(function() {
       let classCaller = new WeatherApp();//instance to grab class from BL
       let userSearchCity = $('#city-location').val();
+      let capUserSearchCity = userSearchCity.charAt(0).toUpperCase() + userSearchCity.slice(1).toLowerCase();
     // console.log(userSearchCity);
     $('#city-location').val(""); //empty input
-    let promise = classCaller.weatherLogic(userSearchCity);//run this instance on the method from the BL
+    let promise = classCaller.weatherLogic(capUserSearchCity);//run this instance on the method from the BL
     promise.then(function(response){
       response = JSON.parse(response); //cleans code
-      getElements(response, userSearchCity); //calls on the function
+      getElements(response, capUserSearchCity); //calls on the function
     }, function(Error) { //display error
       console.log("Sorry, there is an Error loading your requested information!");
     });

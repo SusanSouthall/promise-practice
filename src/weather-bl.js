@@ -4,11 +4,11 @@ class WeatherApp {
   constructor() { //blank constructor
   }
 
-  weatherLogic(userSearchCity) {
+  weatherLogic(capUserSearchCity) {
     return new Promise(function(resolve, reject) {
 
       let weatherRequest = new XMLHttpRequest(); // creating instance on js built in object
-      let url = `http://api.openweathermap.org/data/2.5/forecast?q=${userSearchCity}&appid=${process.env.API_KEY}&cnt=5`;
+      let url = `http://api.openweathermap.org/data/2.5/forecast?q=${capUserSearchCity}&appid=${process.env.API_KEY}&cnt=5`;
 
       weatherRequest.onload = function() {
         if (this.status === 200) {
