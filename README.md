@@ -22,6 +22,8 @@ _This project uses Webpack to bundle and minify the code. The test runner is Kar
 
 * Clone repository on your local computer.
 * If you already have Node, Homebrew, and Karma installed, then skip to **Install Dependencies**.
+* Create an .env file and go to <a href="https://openweathermap.org/current">Open Weather Map</a> and get a personal API key and add it to the .env file like this: API_KEY=[enter API Key here]
+* Go to <a href="https://stormglass.io/">Storm Glass</a> and get a personal API key and add it to the same .env file like this: STORMAPI_KEY=[enter second API key here]
 
   #### Node: Windows / Linux Installation Instructions
   To install `Node` on other systems, go to the <a href="https://nodejs.org/en/">Node website</a>, download and install the appropriate installer for your operating system.

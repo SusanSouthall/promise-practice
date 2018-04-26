@@ -1,5 +1,5 @@
 import { WeatherApp } from './weather-bl.js';
-// import { StormGlassApp } from './weather-bl.js';
+import { StormGlassApp } from './stormSearch-bl.js';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
@@ -18,7 +18,17 @@ function getElements(response, capUserSearchCity) {
 }
 
 function getElementsStorm(response, longInput, latInput) {
-  // $('#weather-long-lat-output').append("<strong>" + response.hours[1] + "</strong>" + "</br>");
+
+  for (let key in response.hours[0]) {
+    if(key.includes('waveDirection') && response.hours[0] != null && response.hours[0] != '') {
+      // console.log("this is getElementsStorm value: " + key);
+      $('#weather-long-lat-output').append("<strong>Current Wave Direction: </strong>" + response.hours[0][key][0].value);
+    }
+    if(key.includes('waveHeight') && response.hours[0] != null && response.hours[0] != '') {
+      // console.log("this is getElementsStorm value: " + key);
+      $('#weather-long-lat-output').append("</br><strong>Current Wave Height: </strong>" + response.hours[0][key][0].value);
+    }
+  }
 }
 
 $(document).ready(function(){
@@ -68,20 +78,20 @@ $(document).ready(function(){
 
 
 
-  // $("#search-js-2").click(function() {
-  //     let classCaller = new StormGlassApp();//instance to grab class from BL
-  //     let longInput = $('#long-input').val();
-  //     let latInput = $('#lat-input').val();
-  //   // console.log(userSearchCity);
-  //   $('#long-input').val(""); //empty input
-  //   $('#lat-input').val(""); //empty input
-  //   let promise = classCaller.stormGlassLogic(latInput, longInput);//run this instance on the method from the BL
-  //   promise.then(function(response){
-  //     response = JSON.parse(response); //cleans code
-  //     console.log(response);
-  //     getElementsStorm(response, longInput, latInput); //calls on the function
-  //   }, function(Error) { //display error
-  //     console.log("Sorry, there is an Error loading your requested information!");
-  //   });
+  $("#search-js-2").click(function() {
+      let classCaller = new StormGlassApp();//instance to grab class from BL
+      let longInput = $('#long-input').val();
+      let latInput = $('#lat-input').val();
+    // console.log(userSearchCity);
+    $('#long-input').val(""); //empty input
+    $('#lat-input').val(""); //empty input
+    let promise = classCaller.stormGlassLogic(latInput, longInput);//run this instance on the method from the BL
+    promise.then(function(response){
+      response = JSON.parse(response); //cleans code
+      // console.log(response + "this is after the promise");
+      getElementsStorm(response, longInput, latInput); //calls on the function outside document ready function
+    }, function(Error) { //display error
+      console.log("Sorry, there is an Error loading your requested information!");
+    });
   });//close js
 });//closes document
